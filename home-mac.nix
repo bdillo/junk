@@ -5,7 +5,14 @@
   home.username = "bendillon";
   home.homeDirectory = "/Users/bendillon";
 
-  home.packages = with pkgs; [ home-manager ];
+  home.packages = with pkgs; [
+    home-manager
+    # Mermaid CLI is Nix-managed, assume chrome exists for rendering so we don't have to manage it in nix
+    (writeShellScriptBin "mmdc" ''
+      export PUPPETEER_EXECUTABLE_PATH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+      exec ${mermaid-cli}/bin/mmdc "$@"
+    '')
+  ];
 
   programs.git.settings.gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
 
