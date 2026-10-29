@@ -14,6 +14,7 @@
     uv
     just
     nodejs
+    (pkgs.callPackage ./tools/visual-bundle/package.nix { })
     qemu
   ];
 
@@ -92,6 +93,8 @@
     enable = true;
     context = ./agent/AGENTS.md;
   };
+
+  home.file.".pi/agent/skills/visualize/SKILL.md".source = ./agent/skills/visualize/SKILL.md;
 
   programs.pi-coding-agent = {
     enable = true;
